@@ -18,7 +18,52 @@ class ViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let currentMap: DeepMap = self.map!
+//        print("Here")
+//        print(currentMap)
+//        print("Here2")
+        var mapUpdate = HDMMapDownloader.init(baseUrl: kHDMUpdateBaseUrl, customerName: currentMap.customerName, projectName: currentMap.projectName, live: currentMap.isLive)
+      //  print(mapUpdate)
+        
+        var newMap: DeepMap? = nil
+        
+//        mapUpdate?.check(forUpdate: currentMap, completion: <#T##((DeepMap?) -> Void)!##((DeepMap?) -> Void)!##(DeepMap?) -> Void#>)
+//        mapUpdate?.fetchAvailableMaps(<#T##block: (([[DeepMap]]?, Error?) -> Void)!##(([[DeepMap]]?, Error?) -> Void)!##([[DeepMap]]?, Error?) -> Void#> in
+//
+//        )
+//
+//        mapUpdate?.getInstallMap(currentMap, completion: {(_ success: Bool) -> Void in
+//            DispatchQueue.main.async(execute: {() -> Void in
+//            self.map = currentMap
+//                print("something")
+//                print(success)
+//                print(self.map)
+//            })
+//        })
+        
+//        mapUpdate?.getInstallMap(<#T##map: DeepMap!##DeepMap!#>, completion: <#T##((Bool) -> Void)!##((Bool) -> Void)!##(Bool) -> Void#>)
+        
+        //        mapUpdate?.check(forUpdate: currentMap, completion: {(_ newMapp: DeepMap) -> Void in
+        //            DispatchQueue.main.async(execute: {() -> Void in
+        //                newMap = newMapp
+        //            })
+        //            } as! (DeepMap?) -> Void)
+        
+        //        mapUpdate?.getInstallMap(newMap, completion: {(_ success: Bool) -> Void in
+        //            if success {
+        //                //var app = UIApplication.shared.delegate as? AppDelegate
+        //                self.map = newMap
+        //            }
+        //            DispatchQueue.main.async(execute: {() -> Void in
+        //            })
+        //        })
+        //
+        
+        
         self.delegate = self
+        
+        
 //        print(viewtest.frame.origin)
 //        print(viewtest.frame.width)
 //        print(viewtest.frame.height)
@@ -39,7 +84,8 @@ class ViewController: HDMMapViewController, HDMMapViewControllerDelegate {
 //        print(feature.bounds)
         print(feature.featureType)
 //        print(feature.location.building)
-        print(coordinate)
+        print(feature.location.coordinate)
+        //print(coordinate)
 //        print(feature.location.course)
 //        print(feature.location.floor)
 //        print(feature.location.crs)
@@ -85,8 +131,8 @@ class ViewController: HDMMapViewController, HDMMapViewControllerDelegate {
 //                let poly = HDMPolygon.init(points: ring0 as! [HDMPoint])
 //                let myFeature: HDMFeature = HDMPolygonFeature.init(polygon: poly, featureType: "poly", zmin: Float(z+1), zmax: Float(z+3))
 //                mapView.add(myFeature)
-        print(feature.attributes)
-        print(feature.attributes[AnyHashable("maplabel:en")])
+        //print(feature.attributes)
+        //print(feature.attributes[AnyHashable("maplabel:en")])
         //print(feature.attributes.index(forKey: "maplabel:en"))
         if feature.featureType == "stand_rooms"
             {
@@ -115,14 +161,17 @@ class ViewController: HDMMapViewController, HDMMapViewControllerDelegate {
 //            print(i.coordinate.z)
 //        }
         let poly = HDMPolygon.init(points: ring0 as! [HDMPoint])
-        let myFeature: HDMFeature = HDMPolygonFeature.init(polygon: poly, featureType: "poly", zmin: Float(z+1), zmax: Float(z+1))
-                myFeature.value(forKey: "maplabel:en", withLocale: "poly")
+        let myFeature: HDMFeature = HDMPolygonFeature.init(polygon: poly, featureType: "osm.leisure.sports_centre", zmin: Float(z+1), zmax: Float(z+1))
+                myFeature.value(forKey: "maplabel:en", withLocale: "osm.leisure.sports_centre")
                 myFeature.defaultDisplayName()
+  //              print(myFeature.featureType)
         mapView.add(myFeature)
         }
         if feature.featureType == "" {
             mapView.remove(feature)
         }
+        
+        //mapView.setFeatureAttribute(<#T##key: String##String#>, value: <#T##String#>, withFeatureId: <#T##UInt64#>)
       
 //        self.mapView.setRegion(HDMMapCoordinateRegionMake(feature.bounds.center.x,
 //                                                          feature.bounds.center.y,
